@@ -7,7 +7,7 @@ Python and Spotipy (Python Spotify Web Wrapper) were used to create the data min
 
 ## Data Collection
 
-The primary data was collected through a survey that asked surveyers to list their 3 favourite songs at the moment and to rate their mental health using a likert scale. The following questions were asked as they are described to be good indicators of an individual's mental health by the [Canadian Mental Health Association](https://www.cmha.ca/mental_health/mental-health-meter/):
+The primary data was collected through a survey that asked surveyers to list their 3 favourite songs at the moment and to rate their mental health using a likert scale.
 
 - ability to enjoy life
 - resilience
