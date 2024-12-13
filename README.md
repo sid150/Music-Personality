@@ -67,64 +67,21 @@ Now that all the data has been collected and cleaned, time to get into the more 
 
 Let's begin by plotting bar charts and histograms of each variable obtained from the survey and spotify to understand it's distribution, mode, variance etc. 
 
-### Univariate Data
-
-#### General Graphs
-<p align="center">
-  <img src="/images/genderHistogram.png?raw=true" width="400" /> 
-  <img src="/images/hoursDurationHisto.png?raw=true" width="400" /> 
-  <img src="/images/ageHistogram.png?raw=true" width="400" />
-</p>
 53.8% of the data set consists of females, 45.3% males and less than 1% chose not to specify.
 
 Surprisingly, <b>46.6%</b> of the data set listens to 2+ hours of music, <b>35%</b> listen to 1-2 hours and <b>18.4%</b> listen to 0 - 1 hours of music. It was expected that most people would be listening to 1-2 hours, but we underestimated the number of avid music listeners. 
 
 Similarly, our data set primariy consisted of 18-30 year olds. We realzied later that this was too large of a range and should have been divided further.
 
-#### Music Graphs
-<p align="center">
-  <img src="/images/tempoHistogram.png?raw=true" width="400" />
-  <img src="/images/popularityHistogram.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/valenceHistogram.png?raw=true" width="400" />
-  <img src="/images/livenessHistogram.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/acousticHistogram.png?raw=true" width="400" />
-  <img src="/images/instrumentalnessHistogram.png?raw=true" width="400" /> 
-</p>
 
 Tempo, popularity, energy, dance and valence have a nice normal distribution which shows that listeners listen to a variety of music hovering around a mean of <b> 123 bpm, 61 popularity, 0.65 energy, 0.60 danceability, 0.45 valence</b>. The entire dataset is primarily not listening to instrumental tracks as shown by the instrumentalness graph which means we can drop this feature as it is least likely to be contributing to mental health. However let's keep exploring the data set before removing any features.
-
-#### Mental Health Graph
-![Figure12](https://github.com/sunnyshikhar/music-datamining/blob/master/images/mentalHealthHisto.png?raw=true) 
 
 
 The mental health histogram is also normally distributed around a mental health
 score between 21-23. There are significantly less people with a low mental health
 score as majority of the people have a medium to high mental health score.
 
-### Bivariate Data
 
-#### Scatter Plots
-The following graphs plot mental health as a function of each musical feature.
-<p align="center">
-  <img src="/images/healthVsTempo.png?raw=true" width="400" />
-  <img src="/images/healthVsPopularity.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/healthVsEnergy.png?raw=true" width="400" />
-  <img src="/images/healthVsDanceability.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/healthVsValence.png?raw=true" width="400" />
-  <img src="/images/healthVsLiveness.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/healthVsAcousticness.png?raw=true" width="400" />
-  <img src="/images/healthVsInstrumentalness.png?raw=true" width="400" /> 
-</p>
 
 The scatter plot does not show any clear relationship between mental health and any musical feature (such as linear, logarithmic etc). However, we are able to conclude that instrumentalness is a weak feature in potentially predicting mental health as mental health ranges from 5 to 30 for really low instrumental values. To say this conclusively, let's do some feature engineering to ensure the right attributes are being used to predict mental health.
 
@@ -167,70 +124,6 @@ As expected, association rules for mental health had a very low confidence. Ther
 
 These were a few of the sensible rules out of thousands of rules. "High Popularity + High Valence -> High Danceability" and vice versa could indicate that songs that perhaps songs that get popular on Spotify may primarily be highly danceable songs. The other rules are interesting as well, such as "High Danceability + Medium Popularity + High Valence" has a 70% confidence of being a female. Let's see what type of clusters we can identify to see what "type" of people exist in the dataset. 
 
-### Clustering
-
-Using the top 5 features (energy, danceability, popularity, tempo and valence) the clustering alogrithm was run on the data set to first find two clusters. When searching for two clusters, <b>tempo</b> was found to be the biggest factor that divided the clusters as shown below:
-
-#### 2 Clusters
-
-<p align="center">
-  <img src="/images/energyVsTempoCluster.png?raw=true" width="400" />
-  <img src="/images/danceVsTempoCluster.png?raw=true" width="400" /> 
-</p>
-<p align="center">
-  <img src="/images/popularityVsTempoCluster.png?raw=true" width="400" />
-  <img src="/images/valenceVsTempoCluster.png?raw=true" width="400" /> 
-</p>
-
-Other 2D cluster plots would overlap, like this Danceability Vs. Energy graph:
-
-![Figure](https://github.com/sunnyshikhar/music-datamining/blob/master/images/danceVsEnergyCluster.png?raw=true)
-
-It's informative to know that tempo is the main factor that divides the entire dataset into two clusters, telling us that there exist two main types of people in the data set- those who listen to mid to high tempo, and those who listen to mid to low tempo songs. But what's the optimal number of clusters? To answer this question and determine the best number of clusters, The Elbow Method was used. The Elbow method looks at the percentage of variance explained as a function of the number of clusters. The optimal number should form an "elbow", essentially showing that the increase with an additional cluster has less of an impact on the cluster center. The graph to find the "elbow" is shown below: 
-
-![Figure](https://github.com/sunnyshikhar/music-datamining/blob/master/images/numberOfClusters.png?raw=true)
-
-The "elbow" can be spotted most visibly at cluster = 4. Therefore the clustering algorithm was run again with k = 4, to find 4 clusters. The graphs were difficult to interpret with 4 clusters as the clusters are being plotted in 4 dimensions and it is tough to interpret them in a 2D plot. For example, the 2D graphs overalp into clusters which shouldn't happen, looking like this:
-
-#### 4 Clusters
-
-<p align="center">
-  <img src="/images/danceVsTempoClusterK4.png?raw=true" width="400" />
-  <img src="/images/popularityVsTempoK4.png?raw=true" width="400" /> 
-</p>
-
-Since the graphs prove to be of little help, it is much more useful to analyze the cluster centroids for the 4 clusters that were formed. These clusters are summarized by the following table: 
-
-![Figure](https://github.com/sunnyshikhar/music-datamining/blob/master/images/clusterCatK4.png?raw=true)
-
-The 4 clusters can be summarized as: 
-
-<b>Cluster 1: Energetic Radio Listeners</b>. People who listen to high danceability and energetic songs, that are just popular to be on radio or were once popular. (For example: <b> Stay - Kygo, Beibs In The Trap - Travis Scott </b> from cluster 1 listeners)
-
-<b>Clsuter 2: Soothing Underground Listeners</b>. People who listen to low energy, danceability and popularity songs that are relaxing and soothing. (For example: <b> Honey, Save Me From My Falsehoods - Asha Jefferies</b> from cluster 2 listeners)
-
-<b>Cluster 3: Upbeat Dancers</b>. People listening to fast tempo and highly danceable songs, but lacking energy and intensity. (For example: <b>Location - Khalid, Drama - Roy Woods, Dat $tick - Rich Chigga (how!?)</b> from cluster 3 listeners.)
-
-<b>Cluster 4: Underground Energetic/Indie Listeners</b>. People listening to high energy and low danceability music, often alternative rock/screamo/indie music that's not popular on Spotify or energetic underground rap/hip-hop music. <b>(For example: Chloroform - Phoenix, Aftermanth - Crown The Empire, Just Might Be - Young Thug</b> from cluster 4 listeners.)
-
-## Supervised Learning
-
-### Regression
-
-#### Linear Regression
-
-As noticed through scatter plots, there is no graph that distinctly shows any linear or non-linear relationship. Therefore, more scatter plots were investigated. When plotting danceability of songs for people who said they went through a traumatic experience and those who didn't with mental health hinted that there might be a relationship present. Although the scatter plot is still difficult to interpret, the filtered plot is shown below:
-
-![Figure](https://github.com/sunnyshikhar/music-datamining/blob/master/images/traumaScatter.png?raw=true) 
-
-Based on the observations of the scatter plots, it was hypothesized that linear regression model would not be the best model to represent the dataset.To conclude this hypothesis, a linear regression analysis was conducted on mental health score relative to the danceability factor for individuals who recently encountered a traumatic experience. Danceability song attribute was chosen as the scatter plot resembled the most to a
-linear trend in comparison to other song attributes. 
-
-<p align="center">
-  <img src="/images/traumaRegression.png?raw=true" width="400" />
-  <img src="/images/traumaResidualHisto.png?raw=true" width="400" /> 
-  <img src="/images/residualDistribution.png?raw=true" width="400" /> 
-</p>
 
 | Field  | Value  |
 |:-:|---|
@@ -245,11 +138,6 @@ linear trend in comparison to other song attributes.
 The residual plot of mental health scores against danceability showed a normal distribution concentrated around zero. This validates that a linear regression model is an appropriate model although not an applicable one due to such a wide spread of data points. The R-squared value obtained for the linear regression model was 14% which is fairly low. This further shows that the model does not account for much variability in
 the data.
 
-#### Multiple Linear Regression
-
-In order to improve the r-squared value, a multiple regression was conducted using the top 5 features from RFE to predict Mental Health. Sklearn's linear_model library was used which uses the Ordinary Least Squares (OLS) method to conduct it's multiple linear regression. OLS or linear least squares method computes the least squares solution using a singular value decomposition of X. This means the algorithm attempts to minimize the sum of squares of residuals. The output is shown below. 
-
-![Figure](https://github.com/sunnyshikhar/music-datamining/blob/master/images/OLSregression.png?raw=true)
 
 The R-squared value increases from 13% in the linear regression to 20.5% in the multi linear regression. However, it is still a weak r-squared value. However, the adjusted r-squared is significantly lower at 15.8%. The adjusted R-squared is a modified version of R-squared that has been adjusted for the number of predictors in the model. This could mean that even 5 features are too many (or too few) to predict mental health and that the gap between r-squared and adjusted r-squared could be less by adding or removing features. 
 
@@ -284,11 +172,7 @@ Although the accuracy of the model is weak, the model of the output is as hypoth
 
 ## Recommendations
 
-Naive Bayes’ can be used as a powerful tool to recommend songs to users to improve their mental health since it predicts low and high mental health with a strong probability for extreme values of each song attributes. Therefore, if it is known that a person has low mental health, songs can be recommended to users that have a high probability of improving mental health due to the Naive Bayes’ prediction. In addition to individual songs, a playlist which averages out to yield a high mental health prediction could be recommended. For example:
-
-- Juju On That Beat (TZ Anthem) - Zay Hilfigerrr
-- This Is What You Came For - Calvin Harris
-- La Bicicleta - Carlos Vives 
+Naive Bayes’ can be used as a powerful tool to recommend songs to users to improve their mental health since it predicts low and high mental health with a strong probability for extreme values of each song attributes. Therefore, if it is known that a person has low mental health, songs can be recommended to users that have a high probability of improving mental health due to the Naive Bayes’ prediction. In addition to individual songs, a playlist which averages out to yield a high mental health prediction could be recommended.
 
 The combination of the above songs can improve your stress level and mental health according to our model, as these songs combined are predicted to have a high mental health with a probability of 60%”.
 
@@ -299,8 +183,3 @@ Data mining procedures such as linear regression, association, clustering and Na
 Based on the results of association rule mining, zero song attributes were associated with any of the categorical mental health variables if a high confidence level was used. In addition, the best linear regression model (mental health vs danceability) has an R-squared value of 13%
 which does not account for much variability in the dataset. Naïve Bayes’ model has a low accuracy but provides usable predictions and matches the initial hypothesis. However, there are several reasons as to why the results of the data mining procedures were not favorable. This could be due to the lack of song data as only three songs were collected per individual. Three songs are not an accurate representation of an individual’s music preferences.
 
-Furthermore, lyrical content was also not considered in this project. For instance, a song may have a high tempo, energy and danceability factors, but the song may have negative lyrical content. Another reason may be due to the lack of diversity of people who completed the survey. Only 12% of the dataset consisted of people who were under 17 or above 30 years old. The rest of the individuals were between the age ranges of 18-30 years old.
-
-In addition, a major potential reason as to why the data mining techniques did not yield good results may be because music is not major influence on a person’s mental health. Other factors such as relationship and financial status could have more of an effect on a person’s mental health. However, Naïve Bayes’ provided the best model given the flaws in the data set to predict mental health and use to improve individuals’ mental health by recommending songs.
-
-In the future, we can attempt Logistic Regression or Support Vector Machines to classify our data set.
