@@ -104,45 +104,6 @@ The Recursive Feature Elimination (RFE) method is a feature selection approach. 
 
 As expected, instrumentalness is the least important feature along with livness and acousticness. Therefore, these three features were removed for the remainder of the study in building more models.
 
-## Unsupervised Learning
-
-### Association 
-
-The purpose of association was to find patterns in the data along with analyzing the relationships between various attributes. Based on the scatter plots analyzed previously, it was hypothesized that with a high confidence level, the categorical variable mental health will not be part of any rules. This is because mental health did not consistently correlate with any of the song attributes. In addition, 87.5% of the dataset consisted of people from ages 18-20 years old. It is assumed that the age range categorical variable will be associated with a lot of attributes due to it abundance of 18-20 year olds in the dataset.
-
-The APRIORI algorithm was used for association rule mining. Since there were only 255 unique records, a minimum support of ten percent was chosen so each rule would cover at least 25 records. If there was a much larger dataset, a lower support percentage would have been chosen. For example, for a million records, a support of one percent would be chosen as it covers 10,000 records. A support of 10-20 percent is a reasonable assumption for the current dataset. 
-
-As expected, association rules for mental health had a very low confidence. There are several reasons as to why the APRIORI algorithm did not generate good association rules for mental health based on the dataset. One factor could be that music may not be a dominant influence on a person’s mental health leading to poor association rules. Another factor could be the lack of song data. However, some interesting associations amongst features are shown below: 
-
-| Rule | Association | Confidence |
-|:-:|---|---|
-| High Popularity + High Valence | High Danceability  | 96.7% |
-| Low Popularity + Low Valence | Low Danceability  | 94.1% |
-| High Energy + Fast Tempo + No Traumatic Experience | Low Danceability | 75% |
-| High Danceability + Medium Popularity + High Valence | Female | 70% |
-| High Dance + Low Energy  | No Traumatic Experience  | 70% |
-
-These were a few of the sensible rules out of thousands of rules. "High Popularity + High Valence -> High Danceability" and vice versa could indicate that songs that perhaps songs that get popular on Spotify may primarily be highly danceable songs. The other rules are interesting as well, such as "High Danceability + Medium Popularity + High Valence" has a 70% confidence of being a female. Let's see what type of clusters we can identify to see what "type" of people exist in the dataset. 
-
-
-| Field  | Value  |
-|:-:|---|
-| Coefficients (m))  | 15.21 |
-| Intercept (b) | 8.94 |
-| Equation of the Line  | Mental Health = (15.21)(danceability) + 8.94 |
-| Mean Residual Sum of Squares  | 19.59  |
-| RMSE  |  4.42  |
-| R-Squared  | 0.14  |
-| Standard Deviation of Results |  4.42  |
-
-The residual plot of mental health scores against danceability showed a normal distribution concentrated around zero. This validates that a linear regression model is an appropriate model although not an applicable one due to such a wide spread of data points. The R-squared value obtained for the linear regression model was 14% which is fairly low. This further shows that the model does not account for much variability in
-the data.
-
-
-The R-squared value increases from 13% in the linear regression to 20.5% in the multi linear regression. However, it is still a weak r-squared value. However, the adjusted r-squared is significantly lower at 15.8%. The adjusted R-squared is a modified version of R-squared that has been adjusted for the number of predictors in the model. This could mean that even 5 features are too many (or too few) to predict mental health and that the gap between r-squared and adjusted r-squared could be less by adding or removing features. 
-
-Regardless, it is conclusive that a linear model is not an accurate model to represent mental health and musical features. Let's keep searching!
-
 
 ### Naive Bayes Model
 
