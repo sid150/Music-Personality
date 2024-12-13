@@ -137,10 +137,5 @@ Naive Bayes’ can be used as a powerful tool to recommend songs to users to imp
 
 The combination of the above songs can improve your stress level and mental health according to our model, as these songs combined are predicted to have a high mental health with a probability of 60%”.
 
-## Conclusion
 
-Data mining procedures such as linear regression, association, clustering and Naïve Bayes’ were used to analyze the effect that music has on a person’s overall mental health. The song attributes of each song inputted by individuals were obtained by using Spotify's Web API.
-
-Based on the results of association rule mining, zero song attributes were associated with any of the categorical mental health variables if a high confidence level was used. In addition, the best linear regression model (mental health vs danceability) has an R-squared value of 13%
-which does not account for much variability in the dataset. Naïve Bayes’ model has a low accuracy but provides usable predictions and matches the initial hypothesis. However, there are several reasons as to why the results of the data mining procedures were not favorable. This could be due to the lack of song data as only three songs were collected per individual. Three songs are not an accurate representation of an individual’s music preferences.
 
